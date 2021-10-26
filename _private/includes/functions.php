@@ -42,6 +42,10 @@ function site_url( $path = '' ) {
 	return get_config( 'BASE_URL' ) . $path;
 }
 
+function absolute_url( $path = '' ) {
+	return get_config( 'BASE_HOST' ) . $path;
+}
+
 function get_config( $name ) {
 	$config = require __DIR__ . '/config.php';
 	$name   = strtoupper( $name );
@@ -238,4 +242,20 @@ function confirmAccount($code){
 		'code' => $code
 	];
 	$statement->execute($params);
+}
+
+function sendConfirmationEmail($email, $code){
+
+
+
+	$url = url('register.name', ['code' => $code]);
+	$absolute_url = absolute_url($url);
+
+	$mailer = getSwiftMailer();
+	$message = createEmailMessage($email, 'Bevestig je account', 'Transformers', 'raphaelrebel@rebelletjes.com ');
+	$email_text = 'Hoi, bevestig hier je account: ' . $absolute_url;
+	$message->setBody($email_text, 'text/html');
+
+	$mailer->send($message);
+
 }
