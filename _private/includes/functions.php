@@ -252,7 +252,7 @@ function sendConfirmationEmail($email, $code){
 	$absolute_url = absolute_url($url);
 
 	$mailer = getSwiftMailer();
-	$message = createEmailMessage($email, 'Bevestig je account', 'Transformers', 'raphaelrebel@rebelletjes.com ');
+	$message = createEmailMessage($email, 'Bevestig je account', 'Transformers', 'raphaelrebel@live.com ');
 	$email_text = 'Hoi, bevestig hier je account: ' . $absolute_url;
 	$message->setBody($email_text, 'text/html');
 
