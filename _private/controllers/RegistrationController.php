@@ -39,7 +39,6 @@ class RegistrationController
 				
 				//bevestigingsmail versturen
 				sendConfirmationEmail($result['data']['email'], $code);
-				echo 'check'; exit;
 
 				//stuur user door naar bedankt pagina
 				$bedanktUrl = url('aanmelding.bedankt');

@@ -29,6 +29,8 @@ SimpleRouter::group( [ 'prefix' => site_url() ], function () {
 	//stuur mail
 	SimpleRouter::get( '/stuur-test-email', 'EmailController@sendTestEmail' )->name( 'email.test');
 
+	//admin page
+	
 
 
 	// STOP: Tot hier al je eigen URL's zetten, dit stukje laat de 4040 pagina zien als een route/url niet kan worden gevonden.

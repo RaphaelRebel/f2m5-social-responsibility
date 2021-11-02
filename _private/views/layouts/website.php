@@ -21,9 +21,9 @@
 		<?php endif ?>
     </nav>
 <div class="container">
-    <header>
-        <h1>Social Responsibility</h1>
-    </header>
+    <!-- <header>
+        <h1><?php include('/text/paste.php') ?></h1>
+    </header> -->
    
     <main>
         <section class="content">

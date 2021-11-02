@@ -252,10 +252,62 @@ function sendConfirmationEmail($email, $code){
 	$absolute_url = absolute_url($url);
 
 	$mailer = getSwiftMailer();
-	$message = createEmailMessage($email, 'Bevestig je account', 'Transformers', 'raphaelrebel@live.com ');
-	$email_text = 'Hoi, bevestig hier je account: ' . $absolute_url;
+	$message = createEmailMessage($email, 'Bevestig je account', 'Transformers', 'raphaelrebel@live.com');
+	$email_text = 'Hoi, bevestig hier je account: <a href="' . $absolute_url . '">Klik hier</a>';
 	$message->setBody($email_text, 'text/html');
 
 	$mailer->send($message);
 
+}
+
+
+function getConfirmationInfo($user){
+	//vind code
+	while ($row = mysqli_fetch_array($user)) {
+		echo '<p>' . $row['code'] . '</p>';
+	  };
+	// Kijk of accounts een code hebben
+
+
+	//zo wel, stop het account in een lijst
+	//plaats lijst in html
+}
+
+
+function updateText(){
+	$newText = $_POST['text'];
+
+    // Op deze plek sla je de bestandsnaam en andere gegevens op in je database, dat mag je zelf doen.
+    try {
+        $mysqli = new mysqli("localhost", "root", "root", "transformers"); // aanpassen voor MA-cloud
+
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            exit();
+        }
+
+        // $data = [
+        //     'image' => $file_name,
+        //     'title' => $title,
+        //     'prize' => $prize
+        // ];
+
+
+        //UPDATE DE FOTO'S HIER
+        //////////////////////////////////////
+        $updateText = "UPDATE `text` SET text= '$newText' WHERE id = 1";
+
+        
+
+        $result = $mysqli->query($updateText);
+        $mysqli->close();
+    } catch (PDOException $e) {
+        echo "ERROR IN INSERTING DATA! : " . $e->getMessage();
+    }
+    
+
+
+    // Stuur de gebruiker door naar een andere pagina
+    header('Location: paste.php');
+    exit();
 }

@@ -29,20 +29,25 @@ class LoginController
 			//controleren wachtwoord klopt (password_verify)
 			$user = getUserByEmail($result['data']['email']);
 
-			if(password_verify($result['data']['password'], $user['password'])){
+			//Kijken of code NULL is
+			if(is_null($user['code'])){
 
-				//gebruiker inloggen
-				loginUser($user);
+				if(password_verify($result['data']['password'], $user['password'])){
 
-				//gebruiker doorsturen naar ingelogde pagina
-				redirect(url('login.dashboard'));
+					//gebruiker inloggen
+					loginUser($user);
 
-			} else{
-				//anders foutmelding tonen
-				$result['errors']['password'] = 'wachtwoord is niet correct';
+					//gebruiker doorsturen naar ingelogde pagina
+					redirect(url('login.dashboard'));
+
+				} else{
+					//anders foutmelding tonen
+					$result['errors']['password'] = 'wachtwoord is niet correct';
+				}
+
+	    	} else{
+				$result['errors']['email'] = 'Dit account is nog niet actief';
 			}
-
-
 		}
 
 
