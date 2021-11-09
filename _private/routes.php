@@ -26,8 +26,13 @@ SimpleRouter::group( [ 'prefix' => site_url() ], function () {
 	SimpleRouter::post( '/login/verwerken', 'LoginController@handleLoginForm' )->name( 'login.handle' );
 	SimpleRouter::get( '/ingelogd/dashboard', 'LoginController@userDashboard' )->name( 'login.dashboard');
 
+	//wachtwoord vergeten
+	SimpleRouter::match(['get', 'post'], '/wachtwoord/vergeten', 'LoginController@passwordforgottenForm' )->name( 'password.form');
+	SimpleRouter::match(['get', 'post'], '/wachtwoord-reset/{reset_code}', 'LoginController@passwordresetForm' )->name( 'password.reset');
+
 	//stuur mail
 	SimpleRouter::get( '/stuur-test-email', 'EmailController@sendTestEmail' )->name( 'email.test');
+	SimpleRouter::get( '/bekijk-test-email', 'EmailController@viewTestEmail' )->name( 'email.view');
 
 	//admin page
 	

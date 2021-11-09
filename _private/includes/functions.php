@@ -274,40 +274,70 @@ function getConfirmationInfo($user){
 }
 
 
-function updateText(){
-	$newText = $_POST['text'];
+// function updateText(){
+// 	$newText = $_POST['text'];
 
-    // Op deze plek sla je de bestandsnaam en andere gegevens op in je database, dat mag je zelf doen.
-    try {
-        $mysqli = new mysqli("localhost", "root", "root", "transformers"); // aanpassen voor MA-cloud
+//     // Op deze plek sla je de bestandsnaam en andere gegevens op in je database, dat mag je zelf doen.
+//     try {
+//         $mysqli = new mysqli("localhost", "root", "root", "transformers"); // aanpassen voor MA-cloud
 
-        if ($mysqli->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            exit();
-        }
+//         if ($mysqli->connect_errno) {
+//             echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+//             exit();
+//         }
 
-        // $data = [
-        //     'image' => $file_name,
-        //     'title' => $title,
-        //     'prize' => $prize
-        // ];
+//         // $data = [
+//         //     'image' => $file_name,
+//         //     'title' => $title,
+//         //     'prize' => $prize
+//         // ];
 
 
-        //UPDATE DE FOTO'S HIER
-        //////////////////////////////////////
-        $updateText = "UPDATE `text` SET text= '$newText' WHERE id = 1";
+//         //UPDATE DE FOTO'S HIER
+//         //////////////////////////////////////
+//         $updateText = "UPDATE `text` SET text= '$newText' WHERE id = 1";
 
         
 
-        $result = $mysqli->query($updateText);
-        $mysqli->close();
-    } catch (PDOException $e) {
-        echo "ERROR IN INSERTING DATA! : " . $e->getMessage();
-    }
+//         $result = $mysqli->query($updateText);
+//         $mysqli->close();
+//     } catch (PDOException $e) {
+//         echo "ERROR IN INSERTING DATA! : " . $e->getMessage();
+//     }
     
 
 
-    // Stuur de gebruiker door naar een andere pagina
-    header('Location: paste.php');
-    exit();
+//     // Stuur de gebruiker door naar een andere pagina
+//     header('Location: paste.php');
+//     exit();
+// }
+
+
+function sendPasswordResetEmail($email){
+
+
+	$reset_code = md5(uniqid(rand(), true));
+	$connection = dbConnect();
+	$sql = 'UPDATE `user` SET `password_reset` = :code WHERE `email` = :email ';
+	$statement = $connection->prepare($sql);
+	$params = [
+		'code' => $reset_code,
+		'email' => $email
+	];
+	$statement->execute($params);
+
+	$url = url('wachtwoord-reset', ['reset_code' => $reset_code]);
+
+	$absolute_url = absolute_url($url);
+
+	$mailer = getSwiftMailer();
+	$message = createEmailMessage($email, 'Bevestig je account', 'Transformers', 'raphaelrebel@live.com');
+
+	$email_text = 'Hoi, Klik hier om je wachtwoord te resetten: <a href="' . $absolute_url . '">Wachtwoord reset</a>';
+
+	$message->setBody($email_text, 'text/html');
+	$mailer->send($message);
+
 }
+
+

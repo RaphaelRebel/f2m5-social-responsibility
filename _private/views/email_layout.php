@@ -32,12 +32,12 @@
         }
         table {
             border-collapse: collapse;
-            mso-table-lspace: 0px;
-            mso-table-rspace: 0px;
+            /* mso-table-lspace: 0px; */
+            /* mso-table-rspace: 0px; */
         }
         td, a, span {
             border-collapse: collapse;
-            mso-line-height-rule: exactly;
+            /* mso-line-height-rule: exactly; */
         }
         .ExternalClass * {
             line-height: 100%;
@@ -47,11 +47,11 @@
             text-decoration: none !important;
         }
         span.MsoHyperlink {
-            mso-style-priority: 99;
+            /* mso-style-priority: 99; */
             color: inherit;
         }
         span.MsoHyperlinkFollowed {
-            mso-style-priority: 99;
+            /* mso-style-priority: 99; */
             color: inherit;
         }
         @media only screen and (min-width:481px) and (max-width:699px) {

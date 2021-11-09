@@ -13,6 +13,9 @@
         <li>
             <a href="<?php echo url( 'logout' ) ?>">Logout</a>
         </li>
+        <li>
+        <a href="<?php echo url( 'login.dashboard' ) ?>"<?php if ( current_route_is( 'login.dashboard' ) ): ?> class="active"<?php endif ?>>Dashboard</a>
+    </li>
         <?php endif;?>
 
     <?php if(isLoggedIn()): ?>

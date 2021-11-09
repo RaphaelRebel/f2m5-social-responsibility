@@ -28,4 +28,13 @@ class EmailController
 		// echo $template_engine->render('login_form');
 	}
 
+	public function viewTestEmail(){
+		$mailer = getSwiftMailer();
+
+		$message = createEmailMessage('raphaelrebel@live.com', "Dit is een test email", "Raphael Rebel", 'raphaelrebel@live.com');
+	
+		$template_engine = get_template_engine();
+		echo $template_engine->render('email', ['message' => $message]);
+	}
+
 }
