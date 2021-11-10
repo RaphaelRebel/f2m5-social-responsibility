@@ -3,9 +3,7 @@
 <h1>Dashboard</h1>
 
 <h1>Welkom 
-<?php if(isLoggedIn()): ?>
-        <?php echo getLoggedInUserEmail();?>
-    <?php endif; ?>
+        <?php echo request()->user['voornaam'];?>
 </h1>
 
 <p>Dit is je persoonlijke dashboard</p>

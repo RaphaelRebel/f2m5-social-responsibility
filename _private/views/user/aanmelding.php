@@ -10,6 +10,8 @@
             <h2>Aanmelden</h2>
         <!-- <input type = "text" name = "voornaam" placeholder = "First name" required>*<br><br>
         <input type = "text" name = "achternaam" placeholder = "Last name" required>*<br><br> -->
+        <input class="form-control" type="voornaam" name="voornaam" placeholder="voornaam" value="<?php echo input('voornaam')?>" required>*<br>
+        <input class="form-control" type="achternaam" name="achternaam" placeholder="achternaam" value="<?php echo input('achternaam')?>" required>*<br>
         <input class="form-control" type="email" name="email" placeholder="E-mail" value="<?php echo input('email')?>" required>*<br>
         <?php if (isset ($errors['email'] ) ): ?>
             <?php echo $errors['email']; ?>

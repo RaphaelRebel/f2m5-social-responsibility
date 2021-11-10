@@ -6,7 +6,8 @@
     "pecee/simple-router": "^4.3",
     "league/plates": "^3.4",
     "ext-pdo": "*",
-    "swiftmailer/swiftmailer": "^6.0"
+    "swiftmailer/swiftmailer": "^6.0",
+    "spatie/image": "^2.2"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master"
@@ -14,13 +15,14 @@
   "license": "GPL-3.0-or-later",
   "authors": [
     {
-      "name": "Hidde Braun",
-      "email": "h.braun@ma-web.nl"
+      "name": "Raphael Rebel",
+      "email": "raphaelrebel@live.com"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Website\\Controllers\\": "_private/controllers/"
+      "Website\\Controllers\\": "_private/controllers/",
+      "Website\\Middleware\\": "_private/middleware"
     }
   }
 }

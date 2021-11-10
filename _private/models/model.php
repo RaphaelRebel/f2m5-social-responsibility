@@ -79,4 +79,31 @@ function updatePassword($user_id, $new_password){
 	return $statement->execute($params);
 }
 
+function createTopic($title, $description){
+	
+	$sql = "INSERT INTO `topics` (`title`, `description`) VALUES (:title, :description)";
+	$connection = dbConnect();
+	$statement = $connection->prepare($sql);
+	$params = [
+		'title' => $title,
+		'description' => $description
+	];
+
+	return $statement->execute($params);
+}
+
+function createImage($newFilename, $origFilename){
+	$sql = "INSERT INTO `images` (`filename`, `original_filename`) VALUES (:filename, :orig_filename)";
+	$connection = dbConnect();
+	$statement = $connection->prepare($sql);
+	$params = [
+		'filename' => $newFilename,
+		'orig_filename' => $origFilename
+	];
+
+	return $connection->lastInsertId();
+
+	return $statement->execute($params);
+}
+
 

@@ -15,7 +15,7 @@ class LoginController
 	{
 
 		$template_engine = get_template_engine();
-		echo $template_engine->render('login_form');
+		echo $template_engine->render('user/login_form');
 	}
 
 	public function handleLoginForm(){
@@ -52,7 +52,7 @@ class LoginController
 
 
 		$template_engine = get_template_engine();
-		echo $template_engine->render('login_form', ['errors' => $result['errors']]);
+		echo $template_engine->render('user/login_form', ['errors' => $result['errors']]);
 	}
 
 	public function userDashboard(){
@@ -60,7 +60,7 @@ class LoginController
 		loginCheck();
 
 		$template_engine = get_template_engine();
-		echo $template_engine->render('user_dashboard');
+		echo $template_engine->render('user/user_dashboard');
 	}
 
 	public function logout(){
@@ -100,7 +100,7 @@ class LoginController
 		}
 
 		$template_engine = get_template_engine();
-		echo $template_engine->render('password_forgotten_form', ['errors' => $errors, 'mail_sent' => $mail_sent]);
+		echo $template_engine->render('user/password_forgotten_form', ['errors' => $errors, 'mail_sent' => $mail_sent]);
 	}
 
 	public function passwordResetForm($reset_code){
@@ -149,6 +149,6 @@ class LoginController
 		}
 
 		$template_engine = get_template_engine();
-		echo $template_engine->render('password_reset_form', ['errors' => $errors, 'reset_code' => $reset_code]);
+		echo $template_engine->render('user/password_reset_form', ['errors' => $errors, 'reset_code' => $reset_code]);
 	}
 }

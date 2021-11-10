@@ -19,7 +19,7 @@ class RegistrationController
 	{
 
 		$template_engine = get_template_engine();
-		echo $template_engine->render('aanmelding');
+		echo $template_engine->render('user/aanmelding');
 	}
 	public function checkAanmelding()
 	{
@@ -35,7 +35,7 @@ class RegistrationController
 				//verificatie code
 				$code = md5(uniqid (rand(), true) );
 			
-				createUser($result['data']['email'], $result['data']['password'], $code);
+				createUser($result['data']['email'], $result['data']['password'], $code, $result['data']['voornaam'], $result['data']['achternaam']);
 				
 				//bevestigingsmail versturen
 				sendConfirmationEmail($result['data']['email'], $code);
@@ -50,13 +50,13 @@ class RegistrationController
 			}
 		}
 		$template_engine = get_template_engine();
-		echo $template_engine->render('aanmelding', ['errors' => $result['errors']]);
+		echo $template_engine->render('user/aanmelding', ['errors' => $result['errors']]);
 		
 	}
 
 	public function bedanktAanmelding(){
 		$template_engine = get_template_engine();
-		echo $template_engine->render('bedankt');
+		echo $template_engine->render('user/bedankt');
 	}
 
 	public function confirmRegistration($code){
@@ -73,7 +73,7 @@ class RegistrationController
 
 		//Doorsturen naar bevestiging pagina
 		$template_engine = get_template_engine();
-		echo $template_engine->render('register_confirmed');
+		echo $template_engine->render('user/register_confirmed');
 
 	}
 }

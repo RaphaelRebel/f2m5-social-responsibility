@@ -1,6 +1,9 @@
 <?php
 // Dit bestand hoort bij de router, en bevat nog een aantal extra functies je kunt gebruiken
 // Lees meer: https://github.com/skipperbent/simple-php-router#helper-functions
+
+use Pecee\Http\Input\InputFile;
+
 require_once __DIR__ . '/route_helpers.php';
 
 // Hieronder kun je al je eigen functies toevoegen die je nodig hebt
@@ -44,6 +47,14 @@ function site_url( $path = '' ) {
 
 function absolute_url( $path = '' ) {
 	return get_config( 'BASE_HOST' ) . $path;
+}
+
+function getAllTopics(){
+	$connection = dbConnect();
+	$sql = "SELECT * FROM `topics` ORDER BY `id` ASC";
+	$statement = $connection->query($sql);
+
+	return $statement->fetchAll();
 }
 
 function get_config( $name ) {
@@ -93,6 +104,8 @@ function current_route_is( $name ) {
 
 function validateRegistrationData($data){
 	$errors = [];
+	$voornaam = $data['voornaam'];
+	$achternaam = $data['achternaam'];
 	$email = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
 	$password = trim($data['password']);
 	// $voornaam = $_POST['voornaam'];
@@ -111,7 +124,44 @@ function validateRegistrationData($data){
 	// resultaat array
 	$data = [
 		'email' => $_POST['email'],
-		'password' => $password
+		'password' => $password,
+		'voornaam' => $voornaam,
+		'achternaam' => $achternaam
+	];
+
+	return [
+		'data' => $data,
+		'errors' => $errors
+	];
+
+}
+
+// Blog 
+function validateTopicData($data, Pecee\Http\Input\InputFile $upload){
+	$errors = [];
+	//Benoem alle waarden
+	$title = $data['title'];
+	$description = $data['description'];
+
+	//check of de titel en description ingevuld zijn
+	if (empty($title)) {
+		$errors['title'] = "Vul een titel in.";
+	}
+	if (empty($description)) {
+		$errors['description'] = "Vul een description in";
+	}
+	if($upload->hasError()){
+		$errors['upload'] = 'Er is geen afbeelding geupload';
+	}else{
+		if($upload->getMime() !== 'image/jpg' && $upload->getMime() !== 'image/png' && $upload->getMime() !== 'image/jpeg'){
+			$errors['upload'] = 'Je mag alleen JPG of png uploaden';
+		}
+	}
+	// resultaat array
+	$data = [
+		'title' => $title,
+		'description' => $description,
+		'upload' => $upload
 	];
 
 	return [
@@ -130,18 +180,20 @@ function userNotRegistered($email){
 	return ($statement->rowCount() === 0);
 }
 
-function createUser($email, $password, $code){
+function createUser($email, $password, $code, $voornaam, $achternaam){
 		
 		$connection = dbConnect();
 
 		//zo niet, door met opslaan
-		$sql = "INSERT INTO `user` (`email`, `password`, `code`) VALUES (:email, :password, :code)";
+		$sql = "INSERT INTO `user` (`email`, `password`, `code`, `voornaam`, `achternaam`) VALUES (:email, :password, :code, :voornaam, :achternaam)";
 		$statement = $connection->prepare($sql);
 		$safe_password = password_hash($password, PASSWORD_DEFAULT);
 		$params = [
 			'email' => $email,
 			'password' => $safe_password,
-			'code' => $code
+			'code' => $code,
+			'voornaam' => $voornaam,
+			'achternaam' => $achternaam
 			// 'voornaam' => $voornaam,
 			// 'achternaam' => $achternaam
 		];
@@ -154,6 +206,13 @@ function loginUser($user){
 
 function logoutUser(){
 	unset($_SESSION['user_id']);
+}
+
+function loggedInUser(){
+	if(!isLoggedIn()){
+		return false;
+	};
+	return getUserById($_SESSION['user_id']);
 }
 
 function isLoggedIn(){
@@ -326,7 +385,7 @@ function sendPasswordResetEmail($email){
 	];
 	$statement->execute($params);
 
-	$url = url('wachtwoord-reset', ['reset_code' => $reset_code]);
+	$url = url('wachtwoord/wachtwoord-reset', ['reset_code' => $reset_code]);
 
 	$absolute_url = absolute_url($url);
 
@@ -339,5 +398,12 @@ function sendPasswordResetEmail($email){
 	$mailer->send($message);
 
 }
+
+
+
+
+
+
+
 
 

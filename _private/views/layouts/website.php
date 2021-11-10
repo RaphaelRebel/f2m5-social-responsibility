@@ -17,7 +17,7 @@
         <?php if ( $this->section( 'navigation' ) ): ?>
 			<?php echo $this->section( 'navigation' ) ?>
         <?php else: ?>
-			<?php echo $this->fetch( '_navigation' ) ?>
+			<?php echo $this->fetch( 'main/_navigation' ) ?>
 		<?php endif ?>
     </nav>
 <div>
