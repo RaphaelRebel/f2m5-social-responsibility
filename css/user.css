@@ -1,0 +1,25 @@
+
+.nav{
+    background-color: #ff8901 ;
+}
+.tent{
+    position: absolute;
+    border-radius: 15px;
+    padding: 40px;
+    width: 500px;
+    background-color: #5626CA;
+    color: white;
+    margin: 72px;
+   overscroll-behavior: smooth;
+  
+}
+.cont{
+    display: flex;
+    height: 500px;
+    justify-content: center;
+    
+}
+footer{
+    position: fixed;
+    bottom: 0;
+}

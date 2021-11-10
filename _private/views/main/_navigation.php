@@ -1,7 +1,4 @@
 <ul>
-    <li>
-        <a href="<?php echo url( 'home' ) ?>"<?php if ( current_route_is( 'home' ) ): ?> class="active"<?php endif ?>>Home</a>
-    </li>
     <?php if( ! isLoggedIn()):?>
         <li>
             <a href="<?php echo url( 'aanmelden' ) ?>"<?php if ( current_route_is( 'aanmelding' ) ): ?> class="active"<?php endif ?>>Aanmelden</a>

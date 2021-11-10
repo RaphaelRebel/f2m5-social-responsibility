@@ -52,6 +52,20 @@ function getUserByCode($code){
 	return false;
 }
 
+function getBlogById($id){
+	$connection = dbConnect();
+	$sql        = "SELECT * FROM `topics` WHERE `id` = :id";
+	$statement  = $connection->prepare( $sql );
+	$statement->execute(['id' => $id]);
+
+	if($statement->rowCount() === 1){
+		return $statement->fetch();
+
+	}
+
+	return false;
+}
+
 function getUserByResetCode($reset_code){
 	$connection = dbConnect();
 	$sql        = "SELECT * FROM `user` WHERE `password_reset` = :code";
@@ -79,31 +93,30 @@ function updatePassword($user_id, $new_password){
 	return $statement->execute($params);
 }
 
-function createTopic($title, $description){
+function createTopic($title, $description, $user){
 	
-	$sql = "INSERT INTO `topics` (`title`, `description`) VALUES (:title, :description)";
+	$sql = "INSERT INTO `topics` (`title`, `description`, `user_id`) VALUES (:title, :description, :user)";
 	$connection = dbConnect();
 	$statement = $connection->prepare($sql);
 	$params = [
 		'title' => $title,
-		'description' => $description
+		'description' => $description,
+		'user' => $user
 	];
 
 	return $statement->execute($params);
 }
 
 function createImage($newFilename, $origFilename){
-	$sql = "INSERT INTO `images` (`filename`, `original_filename`) VALUES (:filename, :orig_filename)";
 	$connection = dbConnect();
+	$sql = "INSERT INTO `images` (`filename`, `original_filename`) VALUES (:filename, :orig_filename)";
 	$statement = $connection->prepare($sql);
 	$params = [
 		'filename' => $newFilename,
 		'orig_filename' => $origFilename
 	];
-
-	return $connection->lastInsertId();
-
 	return $statement->execute($params);
+	return $connection->lastInsertId();
 }
 
 

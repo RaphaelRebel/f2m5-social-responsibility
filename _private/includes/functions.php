@@ -318,6 +318,15 @@ function sendConfirmationEmail($email, $code){
 	$mailer->send($message);
 
 }
+function sendConfirmationMessage($voornaam, $code){
+
+
+
+	$url = url('register.name', ['code' => $code]);
+	$absolute_url = absolute_url($url);
+	$input = 'Bevestig hier de account van '.$voornaam.': <a href="' . $absolute_url . '">Klik hier</a>';
+
+}
 
 
 function getConfirmationInfo($user){

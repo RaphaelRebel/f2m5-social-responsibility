@@ -28,9 +28,9 @@ class RegistrationController
 
 		if (count($result['errors']) === 0) {
 			//informatie opslaan
-			
 			//checken of de gebruiken bestaat
 			if (userNotRegistered($result['data']['email'])) {
+				
 				
 				//verificatie code
 				$code = md5(uniqid (rand(), true) );

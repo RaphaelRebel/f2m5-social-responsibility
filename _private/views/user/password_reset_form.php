@@ -1,4 +1,9 @@
 <?php $this->layout('layouts::website');?>
+<link rel="stylesheet" href="<?php echo site_url( '/css/user.css' ) ?>" media="all">
+<link rel="stylesheet" href="<?php echo site_url( '/css/style.css' ) ?>" media="all">
+<link rel="stylesheet" href="<?php echo site_url( '/css/post.css' ) ?>" media="all">
+<div class="cont">
+<div class="tent">
 
 <h2>Wachtwoord resetten</h2>
 
@@ -15,3 +20,6 @@
             <br><br>
             <input class="submit" type ="submit" value = "Inloggen!">
  </form>
+
+</div>
+</div>

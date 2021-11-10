@@ -1,5 +1,9 @@
 <?php $this->layout('layouts::website');?>
-
+<link rel="stylesheet" href="<?php echo site_url( '/css/user.css' ) ?>" media="all">
+<link rel="stylesheet" href="<?php echo site_url( '/css/style.css' ) ?>" media="all">
+<link rel="stylesheet" href="<?php echo site_url( '/css/post.css' ) ?>" media="all">
+<div class="cont">
+<div class="tent">
 <h2>Wachtwoord vergeten</h2>
 
 <?php if( ! $mail_sent): ?>
@@ -18,3 +22,6 @@
            <?php else: ?>
             <h4>De mail is verstuurd met de reset link</h4>
            <?php endif; ?>
+
+</div>
+</div>
