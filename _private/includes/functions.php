@@ -49,13 +49,7 @@ function absolute_url( $path = '' ) {
 	return get_config( 'BASE_HOST' ) . $path;
 }
 
-function getAllTopics(){
-	$connection = dbConnect();
-	$sql = "SELECT * FROM `topics` ORDER BY `id` ASC";
-	$statement = $connection->query($sql);
 
-	return $statement->fetchAll();
-}
 
 function get_config( $name ) {
 	$config = require __DIR__ . '/config.php';

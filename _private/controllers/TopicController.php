@@ -16,10 +16,12 @@ class TopicController
 
 		$topics = getAllTopics();
 
+		
+
 		$template_engine = get_template_engine();
 		echo $template_engine->render('blog/topics', ['topics' => $topics], ['user' => request()->user]);
 	}
-
+ 
 	public function new()
 	{
 
@@ -48,21 +50,16 @@ class TopicController
 
 			//Image informatie opslaan in de database
 			$image_id = createImage($newFilename, $origFilename);
+			   
 
-			$user = loggedInUser();
+			//  $user_id = loggedInUser();
 
 			//Blog opslaan
-			createTopic($result['data']['title'], $result['data']['description'], $user);
+			createTopic($result['data']['title'], $result['data']['description'], $image_id);
 			redirect(url('topics.index'));
 		}
 		$template_engine = get_template_engine();
 		echo $template_engine->render('blog/new', ['errors' => $result['errors']]);
 	}
-	public function details($id)
-	{
-		$blog = getBlogById($id);
-		// print_r($blog); exit;
-		$template_engine = get_template_engine();
-		echo $template_engine->render('blog/details', ['blog' => $blog]);
-	}
+	
 }

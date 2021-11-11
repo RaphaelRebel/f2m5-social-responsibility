@@ -4,8 +4,9 @@
 <div class="cont">
 <div class="tent">
     
-<h2><?php echo $blog['title'];?></h2> <hr>
-<p><?php echo $blog['description'];?></p>
+<img src="<?php echo site_url('/uploads/' . $topic['filename'])?>" alt="Blog photo" /> <br>
+<h2><?php echo $story['title'];?></h2> <hr>
+<p><?php echo $story['description'];?></p>
 
-</div>
+</div> 
 </div>

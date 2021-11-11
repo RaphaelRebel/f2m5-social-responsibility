@@ -52,6 +52,20 @@ function getUserByCode($code){
 	return false;
 }
 
+function getAllTopics(){
+	$connection = dbConnect();
+	$sql = "SELECT `topics`.*, `images`.`filename`
+			 FROM `topics` 
+			 LEFT JOIN `images` 
+			 ON  `images`.`id` = `topics`.`image_id`
+			 ORDER BY `topics`.`id` ASC";
+
+	
+	$statement = $connection->query($sql);
+
+	return $statement->fetchAll();
+}
+
 function getBlogById($id){
 	$connection = dbConnect();
 	$sql        = "SELECT * FROM `topics` WHERE `id` = :id";
@@ -93,18 +107,19 @@ function updatePassword($user_id, $new_password){
 	return $statement->execute($params);
 }
 
-function createTopic($title, $description, $user){
-	
-	$sql = "INSERT INTO `topics` (`title`, `description`, `user_id`) VALUES (:title, :description, :user)";
+function createTopic($title, $description, $image_id){
+	$user = $_SESSION['user_id'];
+	$sql = "INSERT INTO `topics` (`title`, `description`, `image_id`, `user_id`) VALUES (:title, :description, :image_id, :user_id)";
 	$connection = dbConnect();
 	$statement = $connection->prepare($sql);
 	$params = [
 		'title' => $title,
 		'description' => $description,
-		'user' => $user
+		'image_id' => $image_id,
+		'user_id' => $user
 	];
 
-	return $statement->execute($params);
+	$statement->execute($params);
 }
 
 function createImage($newFilename, $origFilename){
@@ -115,7 +130,7 @@ function createImage($newFilename, $origFilename){
 		'filename' => $newFilename,
 		'orig_filename' => $origFilename
 	];
-	return $statement->execute($params);
+	$statement->execute($params);
 	return $connection->lastInsertId();
 }
 

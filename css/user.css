@@ -6,10 +6,10 @@
     position: absolute;
     border-radius: 15px;
     padding: 40px;
-    width: 500px;
+    width: 90%;
     background-color: #5626CA;
     color: white;
-    margin: 72px;
+    margin: 144px;
    overscroll-behavior: smooth;
   
 }

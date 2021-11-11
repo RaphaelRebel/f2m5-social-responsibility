@@ -38,7 +38,7 @@ SimpleRouter::group(['prefix' => site_url()], function () {
 		SimpleRouter::get('/', 'Securecontroller@index')->name('secure.index');
 		SimpleRouter::get('/dashboard', 'LoginController@userDashboard')->name('login.dashboard');
 	});
-
+	
 	//wachtwoord vergeten
 	SimpleRouter::group(['prefix' => '/wachtwoord'], function () {
 		SimpleRouter::match(['get', 'post'], '/vergeten', 'LoginController@passwordforgottenForm')->name('password.form');
@@ -57,10 +57,13 @@ SimpleRouter::group(['prefix' => site_url()], function () {
 		SimpleRouter::get('/', 'TopicController@index')->name('topics.index');
 		SimpleRouter::get('/new', 'TopicController@new')->name('topics.new');
 		SimpleRouter::post('/new', 'TopicController@save')->name('topics.save');
-		SimpleRouter::get('/{id}', 'TopicController@details')->name('topics.details');
+	});
+	//Story page
+	SimpleRouter::group(['prefix' => '/story', 'middleware' => isAuthenticated::class], function () {
+		SimpleRouter::get('/{id}', 'StoryController@story')->name('topics.story');
 	});
 	//secure
-
+	
 
 
 	// STOP: Tot hier al je eigen URL's zetten, dit stukje laat de 4040 pagina zien als een route/url niet kan worden gevonden.
