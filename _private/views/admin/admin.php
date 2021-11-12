@@ -16,10 +16,6 @@
 
 <p>Accepteer user's</p>
 
-<?php foreach($absolute_url as $url):?>
-    <p>
-        <?php echo $url ?>
-    </p>
-    <?php endforeach?>
+//
 </div>
 </div>

@@ -56,10 +56,12 @@ function getUserByCode($code){
 
 function getAllTopics(){
 	$connection = dbConnect();
-	$sql = "SELECT `topics`.*, `images`.`filename`
+	$sql = "SELECT `topics`.*, `images`.`filename`, `user`.`voornaam`
 			 FROM `topics` 
 			 LEFT JOIN `images` 
 			 ON  `images`.`id` = `topics`.`image_id`
+			 LEFT JOIN `user`
+			 ON `user`.`id` = `topics`.`user_id`
 			 ORDER BY `topics`.`id` ASC";
 
 	
@@ -76,24 +78,31 @@ function getAllConfirms(){
 	return $statement->fetchAll();
 }
 
-function getUserTopicsByUserId(){
+function getUserTopicsByUserId($user_id){
 	// $user = $_SESSION['user_id'];
 	$connection = dbConnect();
-	$sql = "SELECT `topics`.*
+	$sql = "SELECT `topics`.*, `images`.`filename`, `user`.`voornaam`
 			 FROM `topics` 
-			 LEFT JOIN `user` 
-			 ON  `user`.`id` = `topics`.`user_id`
-			 ORDER BY `topics`.`id` ASC ";
-
+			 LEFT JOIN `images` 
+			 ON  `images`.`id` = `topics`.`image_id`
+			 LEFT JOIN `user`
+			 ON `user`.`id` = `topics`.`user_id`
+			 WHERE `topics`.`user_id` = :user_id";
+	$statement  = $connection->prepare( $sql );
+	$statement->execute(['user_id' => $user_id]);
 	
-	$statement = $connection->query($sql);
-
-	return $statement->fetchAll();
+		return $statement->fetchAll();
 }
 
 function getBlogById($id){
 	$connection = dbConnect();
-	$sql        = "SELECT * FROM `topics` WHERE `id` = :id";
+	$sql        =  "SELECT `topics`.*, `images`.`filename`, `user`.`voornaam`
+					FROM `topics` 
+					LEFT JOIN `images` 
+					ON  `images`.`id` = `topics`.`image_id`
+					LEFT JOIN `user`
+					ON `user`.`id` = `topics`.`user_id`
+					WHERE `topics`.`id` = :id";
 	$statement  = $connection->prepare( $sql );
 	$statement->execute(['id' => $id]);
 
@@ -103,6 +112,15 @@ function getBlogById($id){
 	}
 
 	return false;
+}
+
+function deleteBlogById($id){
+	$connection = dbConnect();
+	$sql        = "DELETE FROM `topics` WHERE `id` = :id";
+	$statement  = $connection->prepare( $sql );
+	$statement->execute(['id' => $id]);
+
+	return $statement->rowCount();
 }
 
 function getUserByResetCode($reset_code){

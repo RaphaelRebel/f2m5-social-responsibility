@@ -11,13 +11,13 @@ use mysqli;
 class AdminController
 {
 
-	public function index($code)
+	public function index()
 	{
 
-		sendConfirmationMessage($code);
+		//sendConfirmationMessage($code);
 		
 
         $template_engine = get_template_engine();
-		echo $template_engine->render('admin/admin', ['user' => request()->user], ['code' => $code]);
+		echo $template_engine->render('admin/admin', ['user' => request()->user]);
     }
 }

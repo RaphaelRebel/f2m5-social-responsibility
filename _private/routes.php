@@ -26,7 +26,7 @@ SimpleRouter::group(['prefix' => site_url()], function () {
 	});
 
 	//login routes
-	SimpleRouter::group(['prefix' => '/login'], function () {
+	SimpleRouter::group(['prefix' => '/login', 'middleware' => isAuthenticated::class], function () {
 		SimpleRouter::get('/', 'LoginController@loginForm')->name('login.form');
 		SimpleRouter::post('/verwerken', 'LoginController@handleLoginForm')->name('login.handle');
 	});
@@ -41,7 +41,7 @@ SimpleRouter::group(['prefix' => site_url()], function () {
 	});
 	
 	//wachtwoord vergeten
-	SimpleRouter::group(['prefix' => '/wachtwoord'], function () {
+	SimpleRouter::group(['prefix' => '/wachtwoord', 'middleware' => isAuthenticated::class], function () {
 		SimpleRouter::match(['get', 'post'], '/vergeten', 'LoginController@passwordforgottenForm')->name('password.form');
 		SimpleRouter::match(['get', 'post'], '/wachtwoord-reset/{reset_code}', 'LoginController@passwordresetForm')->name('password.reset');
 	});
@@ -62,6 +62,7 @@ SimpleRouter::group(['prefix' => site_url()], function () {
 	//Story page
 	SimpleRouter::group(['prefix' => '/story', 'middleware' => isAuthenticated::class], function () {
 		SimpleRouter::get('/{id}', 'StoryController@story')->name('topics.story');
+		SimpleRouter::get('/{id}/delete', 'StoryController@storyDelete')->name('story.delete');
 	});
 	//secure
 	

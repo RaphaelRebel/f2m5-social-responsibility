@@ -20,7 +20,7 @@
 </h3>
 <p>
     Made by
-    <?php echo $topic['user_id'];?>
+    <?php echo $topic['voornaam'];?>
 </p>
 </div>
 <?php endforeach?>

@@ -58,7 +58,8 @@ class LoginController
 	public function userDashboard(){
 		//checken of je bent ingelogd
 		loginCheck();
-		$topics = getAllTopics();
+		$topics = getUserTopicsByUserId($_SESSION['user_id']);
+	
 		
 		$template_engine = get_template_engine();
 		echo $template_engine->render('user/user_dashboard', ['topics' => $topics]);

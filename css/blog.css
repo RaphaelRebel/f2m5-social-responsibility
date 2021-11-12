@@ -4,6 +4,11 @@ img{
     border-radius: 9px;
 }
 
+.foto{
+    width: 500px;
+    height: auto;
+}
+
 .blog{
     width: 250px;
 }

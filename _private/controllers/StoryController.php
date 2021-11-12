@@ -12,13 +12,24 @@ class StoryController
 {
 	public function story($id)
 	{
-		$topics = getAllTopics();
+		
 		
 		$story = getBlogById($id);
-
 		
 		// print_r($story); exit;
 		$template_engine = get_template_engine();
-		echo $template_engine->render('blog/story', ['story' => $story], ['topics' => $topics], ['user' => request()->user]);
+		echo $template_engine->render('blog/story', ['story' => $story, 'user' => request()->user]);
+	}
+
+	public function storyDelete($id)
+	{
+		
+		$delete = deleteBlogById($id);
+		
+
+		redirect(url('login.dashboard'));
+		// print_r($story); exit;
+		$template_engine = get_template_engine();
+		echo $template_engine->render('user/user_dashboard', ['delete ' => $delete]);
 	}
 }

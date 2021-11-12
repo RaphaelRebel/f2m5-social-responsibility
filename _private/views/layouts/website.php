@@ -33,9 +33,17 @@
             </section>
 
         </main>
-        <footer>
-            &copy; <?php echo date('Y') ?>
-        </footer>
+            <footer>
+
+        <div class="footer-3">
+
+            <div class="footer-content1"><img class="" src="/images/Tc-b.png" alt="Logo"></div>
+            <div class="footer-content2"><h3>Mighty networks</h3></div>
+            <div class="footer-content3"><h3>Terms of use - Privacy Policy</h3></div>
+
+        </div>
+
+    </footer>
     </div>
     <?php $this->start('javascript') ?>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
