@@ -24,21 +24,41 @@ class RegistrationController
 	public function checkAanmelding()
 	{
 	$result = validateRegistrationData($_POST);
+	$resultImage = validateImageData($_POST, input()->file('upload'));
 
-
-		if (count($result['errors']) === 0) {
+		if (count($resultImage['errors']) === 0 || $result['errors'] === 0) {
 			//informatie opslaan
 			//checken of de gebruiken bestaat
 			if (userNotRegistered($result['data']['email'])) {
+				// echo 'check'; exit;
 				
+							//afbeelding opslaan
+			$upload = input()->file('upload');
+			//File uploaden
+			$tmpFileName = $upload->getTmpName();
+			//Naam ophalen
+			$origFilename = $upload->getFilename();
+			$origFileExt = $upload->getExtension();
+
+			//Unique bestandsnaam maken
+			$newFilename = sha1_file($tmpFileName) . '.' . $origFileExt;
+			$finalPath = get_config('PUBLIC') . '/uploads/' . $newFilename;
+			$upload->move($finalPath);
 				
 				//verificatie code
 				$code = md5(uniqid (rand(), true) );
 			
-				createUser($result['data']['email'], $result['data']['password'], $code, $result['data']['voornaam'], $result['data']['achternaam']);
+				createUser($result['data']['email'], $result['data']['password'], $code, $result['data']['voornaam'], $result['data']['achternaam'], $newFilename, $origFilename);
 				
 				//bevestigingsmail versturen
 				sendConfirmationEmail($result['data']['email'], $code);
+
+			   
+
+			//  $user_id = loggedInUser();
+
+			//Blog opslaan
+			
 
 				//stuur user door naar bedankt pagina
 				$bedanktUrl = url('aanmelding.bedankt');
@@ -76,4 +96,5 @@ class RegistrationController
 		echo $template_engine->render('user/register_confirmed');
 
 	}
+
 }

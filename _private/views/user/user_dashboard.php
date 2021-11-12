@@ -2,13 +2,17 @@
 <link rel="stylesheet" href="<?php echo site_url( '/css/user.css' ) ?>" media="all">
 <link rel="stylesheet" href="<?php echo site_url( '/css/style.css' ) ?>" media="all">
 <link rel="stylesheet" href="<?php echo site_url( '/css/blog.css' ) ?>" media="all">
+<link rel="stylesheet" href="<?php echo site_url( '/css/dashboard.css' ) ?>" media="all">
+
 <div class="cont">
 <div class="tent">
 
 <?php $this->start('title')?>Dashboard<?php $this->stop();?>
 
 <h1>Dashboard</h1>
-
+<?php if(!request()->user['filename'] === 0):?>
+<img class="image" src="<?php echo site_url('/uploads/' . request()->user['filename'])?>" alt="Blog name: <?php echo site_url('/uploads/' . request()->user['filename'])?>">
+<?php endif ?>
 <h1>Welkom 
         <?php echo request()->user['voornaam'];?>
 </h1>

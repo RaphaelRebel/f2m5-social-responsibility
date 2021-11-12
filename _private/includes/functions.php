@@ -165,6 +165,33 @@ function validateTopicData($data, Pecee\Http\Input\InputFile $upload){
 
 }
 
+function validateImageData($data, Pecee\Http\Input\InputFile $upload){
+	$errors = [];
+	//Benoem alle waarden
+
+
+	//check of de titel en description ingevuld zijn
+
+
+	if($upload->hasError()){
+		$errors['upload'] = 'Er is geen afbeelding geupload';
+	}else{
+		if($upload->getMime() !== 'image/jpg' && $upload->getMime() !== 'image/png' && $upload->getMime() !== 'image/jpeg'){
+			$errors['upload'] = 'Je mag alleen JPG of png uploaden';
+		}
+	}
+	// resultaat array
+	$data = [
+		'upload' => $upload
+	];
+
+	return [
+		'data' => $data,
+		'errors' => $errors
+	];
+
+}
+
 function userNotRegistered($email){
 	$connection = dbConnect();
 	$sql = "SELECT * FROM `user` WHERE `email` = :email";
@@ -174,12 +201,12 @@ function userNotRegistered($email){
 	return ($statement->rowCount() === 0);
 }
 
-function createUser($email, $password, $code, $voornaam, $achternaam){
+function createUser($email, $password, $code, $voornaam, $achternaam, $newFilename, $origFilename){
 		
 		$connection = dbConnect();
 
 		//zo niet, door met opslaan
-		$sql = "INSERT INTO `user` (`email`, `password`, `code`, `voornaam`, `achternaam`) VALUES (:email, :password, :code, :voornaam, :achternaam)";
+		$sql = "INSERT INTO `user` (`email`, `password`, `code`, `voornaam`, `achternaam`, `filename`, `original_filename`) VALUES (:email, :password, :code, :voornaam, :achternaam, :filename, :orig_filename)";
 		$statement = $connection->prepare($sql);
 		$safe_password = password_hash($password, PASSWORD_DEFAULT);
 		$params = [
@@ -187,9 +214,9 @@ function createUser($email, $password, $code, $voornaam, $achternaam){
 			'password' => $safe_password,
 			'code' => $code,
 			'voornaam' => $voornaam,
-			'achternaam' => $achternaam
-			// 'voornaam' => $voornaam,
-			// 'achternaam' => $achternaam
+			'achternaam' => $achternaam,
+		    'filename' => $newFilename,
+			'orig_filename' => $origFilename
 		];
 		$statement->execute($params);
 }
@@ -316,15 +343,17 @@ function sendConfirmationEmail($email, $code){
 	$mailer->send($message);
 
 }
-function sendConfirmationMessage($voornaam, $code){
+function sendConfirmationMessage($code){
 
 
 
 	$url = url('register.name', ['code' => $code]);
 	$absolute_url = absolute_url($url);
-	$input = 'Bevestig hier de account van '.$voornaam.': <a href="' . $absolute_url . '">Klik hier</a>';
+
 
 }
+
+
 
 
 function getConfirmationInfo($user){

@@ -15,7 +15,11 @@
 <p><a href="<?php echo url('topics.index')?>">Vind je posts hier</a></p>
 
 <p>Accepteer user's</p>
-<echo 
 
+<?php foreach($absolute_url as $url):?>
+    <p>
+        <?php echo $url ?>
+    </p>
+    <?php endforeach?>
 </div>
 </div>

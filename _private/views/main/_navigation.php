@@ -22,9 +22,14 @@
             </li>
         <?php endif; ?>
         <?php endif;?>
-<div class="name">
-    <?php if(isLoggedIn()): ?>
+        <?php if(isLoggedIn()): ?>
+            <?php if(!request()->user['filename'] === 0):?>
+        <div class="profile">
+            <img src="<?php echo site_url('/uploads/' . request()->user['filename'])?>" alt="Blog name: <?php echo site_url('/uploads/' . request()->user['filename'])?>">
+            <?php endif ?>
+        <div class="name">
         <?php echo request()->user['voornaam'].' '. request()->user['achternaam'];?>
+    </div>
+    </div>
     <?php endif; ?>
-</div>
 </ul>

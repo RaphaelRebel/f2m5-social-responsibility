@@ -25,6 +25,9 @@
             <?php echo $errors['password']; ?>
             <?php endif;?>
             *<br><br>
+            <input type="file" class="form-control" name="upload" id="upload" /><?php echo input('upload')?>   
+            *<br>
+            <?php if (isset ($errors['upload'] ) ): ?><?php echo $errors['upload']; ?> <?php endif;?></br>    
         <input type = "hidden" name = "code" value="L1GaCPLAC/qRRDod7Oo9OxahRcRIwI">
         <input type = "submit" value = "Sign up">
         <p>Already made an account? <a href="../index.html">Click here</a> to log in</p>

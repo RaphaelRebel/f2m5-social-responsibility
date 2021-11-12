@@ -68,6 +68,14 @@ function getAllTopics(){
 	return $statement->fetchAll();
 }
 
+function getAllConfirms(){
+	$connection = dbConnect();
+	$sql = "SELECT * FROM `user` WHERE `code` = :code ";
+	$statement = $connection->query($sql);
+
+	return $statement->fetchAll();
+}
+
 function getUserTopicsByUserId(){
 	// $user = $_SESSION['user_id'];
 	$connection = dbConnect();
@@ -151,6 +159,18 @@ function createImage($newFilename, $origFilename){
 	return $connection->lastInsertId();
 }
 
+function createProfileImage($newFilename, $origFilename){
+	$connection = dbConnect();
+	$sql = "INSERT INTO `user` (`filename`, `original_filename`) VALUES (:filename, :orig_filename)";
+	$statement = $connection->prepare($sql);
+	$params = [
+		'filename' => $newFilename,
+		'orig_filename' => $origFilename
+	];
+	$statement->execute($params);
+	return $connection->lastInsertId();
+}
+
 function getImage($filename){
 	$connection = dbConnect();
 	$sql        = "SELECT * FROM `images` WHERE `filename` = :filename";
@@ -164,5 +184,3 @@ function getImage($filename){
 
 	return false;
 }
-
-

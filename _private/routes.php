@@ -22,6 +22,7 @@ SimpleRouter::group(['prefix' => site_url()], function () {
 		SimpleRouter::post('/check', 'RegistrationController@checkAanmelding')->name('aanmelding.check');
 		SimpleRouter::get('/bedankt', 'RegistrationController@bedanktAanmelding')->name('aanmelding.bedankt');
 		SimpleRouter::get('/bevestigen/{code}', 'RegistrationController@confirmRegistration')->name('register.name');
+		SimpleRouter::post('/bevestigen/save', 'RegistrationController@sabe')->name('register.save');
 	});
 
 	//login routes
