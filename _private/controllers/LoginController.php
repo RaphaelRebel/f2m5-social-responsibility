@@ -58,9 +58,10 @@ class LoginController
 	public function userDashboard(){
 		//checken of je bent ingelogd
 		loginCheck();
-
+		$topics = getAllTopics();
+		
 		$template_engine = get_template_engine();
-		echo $template_engine->render('user/user_dashboard');
+		echo $template_engine->render('user/user_dashboard', ['topics' => $topics]);
 	}
 
 	public function logout(){

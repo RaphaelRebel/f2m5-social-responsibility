@@ -22,8 +22,9 @@
             </li>
         <?php endif; ?>
         <?php endif;?>
-
+<div class="name">
     <?php if(isLoggedIn()): ?>
         <?php echo request()->user['voornaam'].' '. request()->user['achternaam'];?>
     <?php endif; ?>
+</div>
 </ul>

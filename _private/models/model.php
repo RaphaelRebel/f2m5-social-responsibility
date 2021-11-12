@@ -52,6 +52,8 @@ function getUserByCode($code){
 	return false;
 }
 
+
+
 function getAllTopics(){
 	$connection = dbConnect();
 	$sql = "SELECT `topics`.*, `images`.`filename`
@@ -59,6 +61,21 @@ function getAllTopics(){
 			 LEFT JOIN `images` 
 			 ON  `images`.`id` = `topics`.`image_id`
 			 ORDER BY `topics`.`id` ASC";
+
+	
+	$statement = $connection->query($sql);
+
+	return $statement->fetchAll();
+}
+
+function getUserTopicsByUserId(){
+	// $user = $_SESSION['user_id'];
+	$connection = dbConnect();
+	$sql = "SELECT `topics`.*
+			 FROM `topics` 
+			 LEFT JOIN `user` 
+			 ON  `user`.`id` = `topics`.`user_id`
+			 ORDER BY `topics`.`id` ASC ";
 
 	
 	$statement = $connection->query($sql);
@@ -132,6 +149,20 @@ function createImage($newFilename, $origFilename){
 	];
 	$statement->execute($params);
 	return $connection->lastInsertId();
+}
+
+function getImage($filename){
+	$connection = dbConnect();
+	$sql        = "SELECT * FROM `images` WHERE `filename` = :filename";
+	$statement  = $connection->prepare( $sql );
+	$statement->execute(['filename' => $filename]);
+
+	if($statement->rowCount() === 1){
+		return $statement->fetch();
+
+	}
+
+	return false;
 }
 
 

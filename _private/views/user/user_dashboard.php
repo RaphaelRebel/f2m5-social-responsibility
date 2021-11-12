@@ -17,8 +17,20 @@
 
 <h3>Jouw posts:</h3>
 <!-- Hier posts plaatsen -->
-
-
+<div class="overview">
+<?php foreach($topics as $topic):?>
+        <?php if(ConfirmedUser() == $topic['user_id']):?>
+        <div class="blog">
+        <img src="<?php echo site_url('/uploads/' . $topic['filename'])?>" alt="Blog photo" /> <br>
+                <h3>   <?php echo $topic['title'];?><a href="<?php echo url('topics.story', ['id' => $topic['id']])?>"> Check</a><br> </h3>
+        </div>
+        <?php endif?>
+<?php endforeach?>
+</div>
+<hr>
+<p>
+<a href="<?php echo url('topics.new')?>">Nieuwe topic toevoegen</a>
+        </p>
 <p>
             <a href="<?php echo url('password.form');?>">Wachtwoord veranderen</a>
             </p>

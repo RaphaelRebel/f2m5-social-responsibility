@@ -16,7 +16,7 @@
     <div class="blog">
     <img src="<?php echo site_url('/uploads/' . $topic['filename'])?>" alt="Blog photo" /> <br>
         <h3>
-<?php echo $topic['title'];?><a href="<?php echo url('topics.story', ['id' => $topic['id']])?>"> Check</a><br>
+<?php echo $topic['title'];?> <br> <a href="<?php echo url('topics.story', ['id' => $topic['id']])?>"> Check</a><br>
 </h3>
 <p>
     Made by

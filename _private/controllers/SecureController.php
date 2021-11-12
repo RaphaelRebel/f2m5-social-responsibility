@@ -11,12 +11,10 @@ use mysqli;
 class SecureController
 {
 
-	public function index($id)
+	public function index()
 	{
-		// $story = getBlogById($id);
-		$topics = getAllTopics();
         $template_engine = get_template_engine();
-		echo $template_engine->render('secure/index', ['topics' => $topics]);
+		echo $template_engine->render('secure/index');
 	}
 
 }

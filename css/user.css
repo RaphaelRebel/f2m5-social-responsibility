@@ -11,8 +11,11 @@
     color: white;
     margin: 144px;
    overscroll-behavior: smooth;
-  
+   overflow:scroll; 
+   height: 700px;
 }
+
+
 .cont{
     display: flex;
     height: 500px;

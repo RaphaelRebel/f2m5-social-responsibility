@@ -220,6 +220,10 @@ function loginCheck(){
 	}
 }
 
+function ConfirmedUser(){
+	return $_SESSION['user_id'];
+}
+
 function getLoggedInUserEmail(){
 	$email = "NIET INGELOGD";
 
