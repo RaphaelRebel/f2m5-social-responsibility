@@ -98,8 +98,7 @@ function current_route_is( $name ) {
 
 function validateRegistrationData($data){
 	$errors = [];
-	$voornaam = $data['voornaam'];
-	$achternaam = $data['achternaam'];
+
 	$email = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
 	$password = trim($data['password']);
 	// $voornaam = $_POST['voornaam'];
@@ -119,8 +118,6 @@ function validateRegistrationData($data){
 	$data = [
 		'email' => $_POST['email'],
 		'password' => $password,
-		'voornaam' => $voornaam,
-		'achternaam' => $achternaam
 	];
 
 	return [

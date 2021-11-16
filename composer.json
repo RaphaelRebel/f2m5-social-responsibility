@@ -6,7 +6,7 @@
     "pecee/simple-router": "^4.3",
     "league/plates": "^3.4",
     "ext-pdo": "*",
-    "swiftmailer/swiftmailer": "^6.0",
+    "swiftmailer/swiftmailer": "^6.2.4",
     "spatie/image": "^2.2"
   },
   "require-dev": {

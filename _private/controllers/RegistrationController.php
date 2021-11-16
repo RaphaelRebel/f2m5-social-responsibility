@@ -51,7 +51,7 @@ class RegistrationController
 				createUser($result['data']['email'], $result['data']['password'], $code, $result['data']['voornaam'], $result['data']['achternaam'], $newFilename, $origFilename);
 				
 				//bevestigingsmail versturen
-				sendConfirmationEmail($result['data']['email'], $code);
+				//GEEN MAIL MOGELIJK
 
 			   
 
